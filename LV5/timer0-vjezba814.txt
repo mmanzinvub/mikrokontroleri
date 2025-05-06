@@ -1,0 +1,25 @@
+u vjezbi 814 nije moguce sa timerom0 ostvariti 300ms nego 16ms je max jer ima registar 8bit, dok timer1 i timer3 su 16bit.
+
+zato koristimo:
+uint8_t prazan_hod_timer0 = 0;
+// prekidna rutina za timer0
+ISR ( TIMER0_OVF_vect ) {
+TCNT0 = 0; // pocetna vrijednost registra
+if (++ prazan_hod_timer0 == 20) {
+toggle_port ( PORTB , PB4 ) ;
+prazan_hod_timer0 = 0;
+}
+}
+
+i prescaler od 1024 za timer0 i onda ce brojit do 16ms sto je max za njega. tcnt0 = 22 broji do 16ms kad uvrstis u formulu.
+
+prazan hod broji do 19 znaci kad timer0 dode do 16ms onda se prazan hod uveca za 1 i sve dok ne dode do 19 sto znaci 19(prazan hod)*16ms
+ce biti 304ms i time smo ostvarili 300ms sa timer0
+
+FORMULE:
+tcnt0 = 256 - t * F_CPU / prescaler (8bit registar)
+tcnt1, tcnt3 = 65536 - t * F_CPU / prescaler (16bit registar)
+F_CPU = 16.000.000
+prescaler = 8, 64, 256, 1024 (odaberes koji zelis)
+
+vidjet ces da s vremenom crvena desynca zbog tolerancije
