@@ -1,0 +1,14 @@
+OCROA = Td / T * 255 = 0.1 * 255 = 25
+OCROA = Td / T * 255 = 0.4 * 255 = 102
+OCROA = Td / T * 255 = 0.9 * 255 = 230
+
+Td/T je duty cycle postotak.
+
+Kad pomocu potenciometra stavis 0% duty cycle i ako je non inverted onda je signal na low cijelo vrijeme
+
+Kad pomocu potenciometra stavis 50% duty cycle i ako je non inverted onda je signal na low 50% i na high 50% vremena
+
+Kad pomocu potenciometra stavis 100% duty cycle i ako je non inverted onda je signal na high cijelo vrijeme
+
+Frekvencija fast PWM signala - Fcpu / (prescaler_timer * 256) = 16.000.000 / (8 * 256) = 7.81kHz
+Frekvencija phase control PWM signala - F_pcPWM = Fcpu / (prescaler_timer * 510) = 16.000.000 / (8 * 510) = 3.92kHz
